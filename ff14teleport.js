@@ -2,8 +2,9 @@
 // @name         ff14超域传送助手
 // @namespace    393033152@qq.com
 // @version      0.1
-// @description
+// @description  JavaScript
 // @author       Gavrain
+// @license      Apache
 // @match        https://ff14bjz.sdo.com/RegionKanTelepo*
 // @grant        none
 // ==/UserScript==
