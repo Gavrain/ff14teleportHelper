@@ -247,7 +247,7 @@
         document.querySelector('.s-area button').click()
         const ratio = await findElementByQuerySelectorAsync('.ant-radio')
         if (ratio == null) {
-            alert('没有找到角色')
+            showRoleNotFoundMessage('角色未找到，请检查大区设置后重试')
             return
         }
         ratio.click()
@@ -319,6 +319,52 @@
         return new Promise(resolve => setTimeout(resolve, ms))
     }
 
+    // 辅助函数：消息提示
+    function showRoleNotFoundMessage(text) {
+        // 创建提示元素
+        const messageBox = document.createElement('div')
+
+        // 设置样式
+        messageBox.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-100px); /* 初始位置在视口外 */
+        padding: 12px 20px;
+        background-color: #ff4d4f; /* 红色背景，提示错误 */
+        color: white;
+        border-radius: 4px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        z-index: 99999; /* 确保在最上层 */
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0; /* 初始透明 */
+        font-family: sans-serif;
+        font-size: 14px;
+    `
+
+        // 设置提示文本
+        messageBox.textContent = text
+
+        // 添加到页面
+        document.body.appendChild(messageBox)
+
+        // 触发淡入动画（延迟10ms确保元素已添加到DOM）
+        setTimeout(() => {
+            messageBox.style.transform = 'translateX(-50%) translateY(0)'
+            messageBox.style.opacity = '1'
+        }, 10)
+
+        // 3秒后自动关闭（淡出动画）
+        setTimeout(() => {
+            messageBox.style.transform = 'translateX(-50%) translateY(-100px)'
+            messageBox.style.opacity = '0'
+
+            // 动画结束后移除元素
+            setTimeout(() => {
+                document.body.removeChild(messageBox)
+            }, 300)
+        }, 3000)
+    }
 
     // 执行入口：先注入配置UI，再执行主逻辑
     injectConfigUI()
