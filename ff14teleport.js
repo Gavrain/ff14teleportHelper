@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  JavaScript
 // @author       Gavrain
-// @license      Apache
+// @license      Apache-2.0
 // @match        https://ff14bjz.sdo.com/RegionKanTelepo*
 // @grant        none
 // ==/UserScript==
